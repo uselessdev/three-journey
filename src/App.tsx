@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Canvas } from '@react-three/fiber'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="canvas-container">
+      {/* position is: x, y, z */}
+      <Canvas camera={{ fov: 75, position: [0, 0, 3] }}>
+        {/* <ambientLight intensity={0.1} /> */}
+        {/* <directionalLight color="red" position={[0,0,4]} /> */}
+
+        <mesh>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshBasicMaterial color={0x00ff00} />
+        </mesh>
+      </Canvas>
     </div>
-  );
+  )
 }
 
 export default App;
