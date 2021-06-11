@@ -1,17 +1,15 @@
 import { Canvas } from '@react-three/fiber'
+import { Box } from './components/box'
 
 function App() {
   return (
     <div id="canvas-container">
-      {/* position is: x, y, z */}
-      <Canvas camera={{ fov: 75, position: [0, 0, 3] }}>
-        {/* <ambientLight intensity={0.1} /> */}
-        {/* <directionalLight color="red" position={[0,0,4]} /> */}
-
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshBasicMaterial color={0x00ff00} />
-        </mesh>
+      <Canvas camera={{ fov: 75, position: [0, 0, 3], far: 75 }}>
+        <group position={[0, 0.25, 0]} rotation={[0, 1, 0]}>
+          <Box color={0xff0000} position={[-2, 0, 0]} />
+          <Box color={0x00ff00} position={[0, 0, 0]} />
+          <Box color={0x0000ff} position={[2, 0, 0]} />
+        </group>
       </Canvas>
     </div>
   )
