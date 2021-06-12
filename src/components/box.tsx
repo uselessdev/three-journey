@@ -1,22 +1,22 @@
-import { MeshProps, Color } from "@react-three/fiber";
-import { useRef, useState } from "react";
-import { useSpring, animated, config } from '@react-spring/three'
+import { MeshProps, Color, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 
 interface Props extends MeshProps {
   color: Color
 }
 
 export function Box ({ color, ...props }: Props) {
-  const [status, setStatus] = useState(0)
   const mesh = useRef<MeshProps>()
-  const { spring } = useSpring({ spring: status, config: config.wobbly })
 
-  const rotation = spring.to([0, 1], [0, Math.PI])
+  useFrame(({ clock }) => {
+    // @ts-ignore
+    mesh.current.rotation.y = clock.getElapsedTime()
+  })
 
   return (
-    <animated.mesh position-x={rotation} {...props} ref={mesh} onClick={() => setStatus(Number(!status))}>
+    <mesh {...props} ref={mesh}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={color} />
-    </animated.mesh>
+    </mesh>
   )
 }
