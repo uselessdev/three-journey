@@ -30,7 +30,8 @@ export function Box ({ color, ...props }: Props) {
 
   useEffect(() => {
     camera.position.y = cursor.y * 5
-    camera.position.x = cursor.x * 3
+    camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
+    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
     // @ts-ignore
     camera.lookAt(mesh.current.position)
   }, [cursor]) // eslint-disable-line
