@@ -10,6 +10,7 @@ function App() {
     <div id="canvas-container">
       <Canvas camera={{ fov: 75, position: [0, 0, 3] }}>
         <PerspectiveCamera ref={cameraRef} makeDefault fov={75} position={[0, 0, 3]} />
+
         {/* @ts-ignore */}
         <OrbitControls camera={cameraRef.current} />
 
