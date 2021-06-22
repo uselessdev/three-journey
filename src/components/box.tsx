@@ -2,6 +2,9 @@ import { useRef } from "react";
 import { MeshProps, Color } from "@react-three/fiber";
 import { useSpring, a, config } from '@react-spring/three'
 import { useControls, button } from 'leva'
+import * as THREE from 'three'
+import { useTexture } from "@react-three/drei";
+import image from '../images/minecraft.png'
 
 interface Props extends MeshProps {
   color: Color
@@ -16,9 +19,12 @@ for (let i in positions) {
 
 export function Box ({ color, ...props }: Props) {
   const mesh = useRef<MeshProps>()
-  const [{ rotation }, setRotation] = useSpring(() => ({
+const [{ rotation }, setRotation] = useSpring(() => ({
     rotation: [0, 0, 0],
   }))
+
+  const teste = useTexture(image)
+  teste.magFilter = THREE.NearestFilter
 
   const control = useControls({
     position: {
@@ -27,14 +33,14 @@ export function Box ({ color, ...props }: Props) {
       min: -3,
       max: 3,
     },
-    color,
+    // color,
     rotation: button(() => {
       setRotation({
         // @ts-ignore
-        rotation: [0, mesh.current?.rotation.y + Math.random() * 3, 0],
-        config: config.wobbly,
-      })
-    })
+         rotation: [0, mesh.current?.rotation.y + Math.random() * 3, 0],
+         config: config.wobbly,
+       })
+     })
   })
 
   return (
@@ -50,7 +56,7 @@ export function Box ({ color, ...props }: Props) {
       rotation={rotation}
     >
       <boxBufferGeometry args={[1, 1, 1]} />
-      <meshBasicMaterial color={control.color as Color} />
+      <meshStandardMaterial map={teste} />
     </a.mesh>
   )
 }
